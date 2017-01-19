@@ -43,10 +43,8 @@ namespace asp_mvc_2.Models.EntityManager
                     SUR.LOOKUPRoleID = user.LOOKUPRoleID;
                     SUR.SYSUserID = user.SYSUserID;
                     SUR.IsActive = true;
-                    SUR.RowCreatedSYSUserID = user.SYSUserID > 0 ? user.SYSUserID :
-1;
-                    SUR.RowModifiedSYSUserID = user.SYSUserID > 0 ? user.SYSUserID :
-1;
+                    SUR.RowCreatedSYSUserID = user.SYSUserID > 0 ? user.SYSUserID : 1;
+                    SUR.RowModifiedSYSUserID = user.SYSUserID > 0 ? user.SYSUserID : 1;
                     SUR.RowCreatedDateTime = DateTime.Now;
                     SUR.RowModifiedDateTime = DateTime.Now;
 
@@ -55,12 +53,22 @@ namespace asp_mvc_2.Models.EntityManager
                 }
             }
         }
-
         public bool IsLoginNameExist(string loginName)
         {
             using (DemoDBEntities db = new DemoDBEntities())
             {
                 return db.SYSUsers.Where(o => o.LoginName.Equals(loginName)).Any();
+            }
+        }
+        public string GetUserPassword(string loginName)
+        {
+            using (DemoDBEntities db = new DemoDBEntities())
+            {
+                var user = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName));
+                if (user.Any())
+                    return user.FirstOrDefault().PasswordEncryptedText;
+                else
+                    return string.Empty;
             }
         }
     }
