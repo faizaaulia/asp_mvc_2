@@ -4,5 +4,6 @@
 }
 
 <h2>Hi <b>@Context.User.Identity.Name</b>! Welcome to my first MVC 5 Web App!</h2>
-<h4>@Html.ActionLink("Admin, Click Here!", "AdminOnly", "Home")</h4>
-<h5>@Html.ActionLink("SignOut?","SignOut","Account")</h5>
+@Html.ActionLink("Edit Profile", "EditProfile", "Home") 
+@Html.ActionLink("Admin, Click Here!", "AdminOnly", "Home")
+@Html.ActionLink("SignOut?","SignOut","Account")
